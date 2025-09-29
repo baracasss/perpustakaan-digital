@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perpustakaan Digital</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Accessibility Controls -->
+    <div class="accessibility-controls" id="accessibilityControls">
+        <button class="accessibility-btn" onclick="increaseFontSize()">A+</button>
+        <button class="accessibility-btn" onclick="decreaseFontSize()">A-</button>
+        <button class="accessibility-btn" onclick="toggleHighContrast()">Kontras</button>
+        <button class="accessibility-btn" onclick="toggleDarkMode()">🌙</button>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>📚 Perpustakaan Digital</h1>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#home" onclick="showSection('home')">Beranda</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Kategori ▼</a>
+                    <div class="dropdown-menu">
+                        <a href="#" onclick="filterByCategory('teknologi')">Teknologi</a>
+                        <a href="#" onclick="filterByCategory('sejarah')">Sejarah</a>
+                        <a href="#" onclick="filterByCategory('sastra')">Sastra</a>
+                        <a href="#" onclick="filterByCategory('sains')">Sains</a>
+                        <a href="#" onclick="filterByCategory('bisnis')">Bisnis</a>
+                    </div>
+                </div>
+                <a href="#browse" onclick="showSection('browse')">Jelajahi</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Akun ▼</a>
+                    <div class="dropdown-menu">
+                        <a href="#" onclick="showLogin()">Masuk</a>
+                        <a href="#" onclick="showRegister()">Daftar</a>
+                        <a href="#" onclick="showProfile()">Profil Saya</a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </nav>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Cari judul, pengarang, atau kata kunci..." oninput="performQuickSearch()">
+                <button onclick="performSearch()">🔍</button>
+            </div>
+            <button class="advanced-search-btn" onclick="toggleAdvancedSearch()">Pencarian Lanjutan</button>
+        </div>
+
+        <!-- Advanced Search Panel -->
+        <div class="advanced-search-panel" id="advancedSearchPanel">
+            <h3>Pencarian Lanjutan</h3>
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label>Tahun:</label>
+                    <select id="yearFilter">
+                        <option value="">Semua Tahun</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Subjek:</label>
+                    <select id="subjectFilter">
+                        <option value="">Semua Subjek</option>
+                        <option value="teknologi">Teknologi</option>
+                        <option value="sejarah">Sejarah</option>
+                        <option value="sastra">Sastra</option>
+                        <option value="sains">Sains</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Tipe:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" value="ebook"> E-Book</label>
+                        <label><input type="checkbox" value="audiobook"> Audiobook</label>
+                        <label><input type="checkbox" value="journal"> Jurnal</label>
+                        <label><input type="checkbox" value="magazine"> Majalah</label>
+                    </div>
+                </div>
+            </div>
+            <button onclick="applyAdvancedFilters()">Terapkan Filter</button>
+        </div>
+    </header>
+
+    <!-- Notifications -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Homepage Section -->
+        <section id="homeSection" class="section active">
+            <!-- Homepage Carousel -->
+            <div class="carousel-container">
+                <div class="carousel" id="carousel">
+                    <div class="carousel-slide active">
+                        <img src="https://via.placeholder.com/800x300/4F46E5/FFFFFF?text=Koleksi+Terbaru" alt="Koleksi Terbaru">
+                        <div class="carousel-content">
+                            <h2>Koleksi Terbaru</h2>
+                            <p>Temukan buku-buku terbaru yang baru ditambahkan ke perpustakaan digital kami</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://via.placeholder.com/800x300/059669/FFFFFF?text=Buku+Unggulan" alt="Buku Unggulan">
+                        <div class="carousel-content">
+                            <h2>Buku Unggulan</h2>
+                            <p>Koleksi buku pilihan dengan rating tertinggi dari pembaca</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://via.placeholder.com/800x300/DC2626/FFFFFF?text=Jurnal+Ilmiah" alt="Jurnal Ilmiah">
+                        <div class="carousel-content">
+                            <h2>Jurnal Ilmiah</h2>
+                            <p>Akses ribuan jurnal ilmiah dari berbagai bidang keilmuan</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="prevSlide()">❮</button>
+                <button class="carousel-btn next" onclick="nextSlide()">❯</button>
+                <div class="carousel-indicators" id="carouselIndicators"></div>
+            </div>
+
+            <!-- Featured Collections -->
+            <div class="featured-sections">
+                <div class="featured-section">
+                    <h3>📈 Buku Terpopuler</h3>
+                    <div class="book-grid" id="popularBooks"></div>
+                </div>
+                
+                <div class="featured-section">
+                    <h3>🆕 Baru Ditambahkan</h3>
+                    <div class="book-grid" id="newBooks"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Browse Section -->
+        <section id="browseSection" class="section">
+            <div class="browse-header">
+                <h2>Jelajahi Koleksi</h2>
+                <div class="view-controls">
+                    <button class="view-btn active" onclick="toggleView('grid')" data-view="grid">⊞ Grid</button>
+                    <button class="view-btn" onclick="toggleView('list')" data-view="list">☰ List</button>
+                </div>
+                <div class="sort-controls">
+                    <label>Urutkan:</label>
+                    <select id="sortSelect" onchange="sortBooks()">
+                        <option value="relevance">Relevansi</option>
+                        <option value="date">Tanggal</option>
+                        <option value="popularity">Popularitas</option>
+                        <option value="title">Judul A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="browse-content">
+                <div class="book-container grid-view" id="bookContainer"></div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <button onclick="changePage(-1)">❮ Sebelumnya</button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button onclick="changePage(1)">Selanjutnya ❯</button>
+            </div>
+        </section>
+
+        <!-- Book Detail Modal -->
+        <div class="modal" id="bookModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="book-detail" id="bookDetail">
+                    <!-- Book details will be populated here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Kontak</h4>
+                <p>📧 info@perpustakaandigital.com</p>
+                <p>📞 (021) 123-4567</p>
+                <p>📍 Jakarta, Indonesia</p>
+            </div>
+            <div class="footer-section">
+                <h4>Bantuan</h4>
+                <a href="#">FAQ</a>
+                <a href="#">Panduan Penggunaan</a>
+                <a href="#">Dukungan Teknis</a>
+            </div>
+            <div class="footer-section">
+                <h4>Kebijakan</h4>
+                <a href="#">Syarat & Ketentuan</a>
+                <a href="#">Kebijakan Privasi</a>
+                <a href="#">Hak Cipta</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Perpustakaan Digital. Semua hak cipta dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
